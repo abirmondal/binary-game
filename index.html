@@ -9,16 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.js"></script> -->
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body);"></script> -->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js"
-            onload="renderMathInElement(document.body);"></script>
-    
+            onload="renderMathInElement(document.body);"></script>    
     <title>Binary Game</title>
 </head>
 <body class="container mt-2">
@@ -62,11 +56,25 @@
 
 
     <div class="d-flex justify-content-center pt-5 align-items-center">
-        <div class="card border-light mb-3 text-center" style="width: 20rem;">
-            <div class="card-header">Find the value of \(n\), if</div>
-            <div class="card-body">
-                <h1>\(2^n=8\)</h1>
+        <div>
+            <div class="card border-light mb-3 text-center">
+                <div class="card-header">Find the value of \(n\), if</div>
+                <div class="card-body">
+                    <h1 id="ques"></h1>
+                </div>
             </div>
+            
+            <form class="d-flex justify-content-center" id="ansarea">
+                <fieldset style="width: 60vw;">
+                    <div class="form-group pb-4">
+                        <label for="ansval" class="form-label mt-4">Enter your answer</label>
+                        <input type="number" class="form-control" id="ansval" placeholder="Your Answer">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
         <div>
             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
@@ -75,7 +83,9 @@
             </button>
         </div>
     </div>
-    <input type="text" value="correct value" class="form-control is-valid" id="inputValid">
+
+    <script src="js/cookie.js"></script>
+    <script src="js/problems.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

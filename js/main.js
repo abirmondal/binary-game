@@ -11,35 +11,40 @@ function light_to_dark() {
     $('#light-dark-toggle .form-check-input').attr("checked", "true");
 }
 
-// $.removeCookie('playerName');
-if ($.cookie('playerName') == null) {
-    $.cookie('playerName', 'Demo Player');
+if (getCookie('playerName') == null) {
+    setCookie('playerName', 'Demo Player');
 }
-$('#pname').val($.cookie('playerName'));
+if (getCookie('maxn') == null) {
+    setCookie('maxn', 5);
+}
 
-$('#welmes h1').text("Welcome " + $.cookie('playerName') + "!");
+$('#pname').val(getCookie('playerName'));
+
+$('#welmes h1').text("Welcome " + getCookie('playerName') + "!");
 
 $(document).ready(function() {
-    if ($.cookie('theme') == 0 || $.cookie('theme') == null) {
+    if (getCookie('theme') == 0 || getCookie('theme') == null) {
         dark_to_light();
     }
     else {
         light_to_dark();
     }
 
+    $('#maxn').val(getCookie('maxn'));
+
     $('#light-dark-toggle').click(function () {
         if ($('#light-dark-toggle').data("mode") == 1) {
             dark_to_light();
-            $.cookie('theme', 0);
+            setCookie('theme', 0);
         }
         else {
             light_to_dark();
-            $.cookie('theme', 1);
+            setCookie('theme', 1);
         }
     });
 
     $('#pname').on('input', function() {
-        if ($('#pname').val() == $.cookie('playerName')) {
+        if ($('#pname').val() == getCookie('playerName')) {
             $('#name-save').attr('disabled', 'true');
         }
         else {
@@ -48,8 +53,8 @@ $(document).ready(function() {
     });
 
     $('#name-save').click(function() {
-        $.cookie('playerName', $('#pname').val());
-        $('#welmes h1').text("Welcome " + $.cookie('playerName') + "!");
+        setCookie('playerName', $('#pname').val());
+        $('#welmes h1').text("Welcome " + getCookie('playerName') + "!");
         $('#name-save').addClass('btn-success');
         $('#name-save').html('<i class="fa-solid fa-check"></i>');
 
@@ -61,6 +66,38 @@ $(document).ready(function() {
     });
 
     $('#maxn').on('input', function() {
-        console.log($('#maxn').val());
+        setCookie('maxn', $('#maxn').val());
+    });
+
+    nextQ();
+
+    $('#ansarea button[type = "submit"]').click(function(e) {
+        e.preventDefault();
+        if ($('#ansarea button[type = "submit"]').text() == 'Next') {
+            $('#ansarea button[type = "submit"]').text('Submit');
+            $('#ansarea button[type = "submit"]').removeClass('btn-success');
+            $('#ansval').removeAttr('disabled');
+            $('#ansval').removeClass('is-valid');
+            $('#ansval').val(null);
+            nextQ();
+        }
+        else if ($('#ansarea button[type = "submit"]').text() == 'Retry') {
+            $('#ansarea button[type = "submit"]').text('Submit');
+            $('#ansarea button[type = "submit"]').removeClass('btn-danger');
+            $('#ansval').removeAttr('disabled');
+            $('#ansval').removeClass('is-invalid');
+        }
+        else if ( checkans($('#ansval').val()) ) {
+            $('#ansarea button[type = "submit"]').text('Next');
+            $('#ansarea button[type = "submit"]').addClass('btn-success');
+            $('#ansval').attr('disabled', 'true');
+            $('#ansval').addClass('is-valid');
+        }
+        else {
+            $('#ansarea button[type = "submit"]').text('Retry');
+            $('#ansarea button[type = "submit"]').addClass('btn-danger');
+            $('#ansval').attr('disabled', 'true');
+            $('#ansval').addClass('is-invalid');
+        }
     });
 });
