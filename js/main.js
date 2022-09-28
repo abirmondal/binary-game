@@ -100,4 +100,9 @@ $(document).ready(function() {
             $('#ansval').addClass('is-invalid');
         }
     });
+
+    $('#newq').click(function(e) {
+        e.preventDefault();
+        nextQ();
+    });
 });
